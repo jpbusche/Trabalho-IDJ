@@ -1,0 +1,13 @@
+#include "Game.h"
+#include <iostream>
+
+using namespace std;
+
+
+int main(int argc, char ** argv) {
+	int width = 1024;
+	int height = 600;
+	game = new Game("Joao Paulo Busche - 14/0023348", width, height);
+	game.run();
+	return 0;
+}
