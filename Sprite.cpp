@@ -20,12 +20,15 @@ Sprite::~Sprite() {
 void Sprite::Open(string file) {
 	if(texture != nullptr) {
 		texture = nullptr;
+		SDL_DestroyTexture(texture);
 	}
-	texture = IMG_LoadTexture(texture, file);
+	texture = IMG_LoadTexture(Game.renderer, file);
 	if(texture == nullptr) {
 		printf("Textura nao pode ser carregada corretamente: %s\n", SDL_GetError());
 		exit(1);
 	}
+	SDl_QueryTexture(texture, nullptr, nullptr, widht, heigth);
+	SetClip(/* x */, /* y */, widht, height);
 }
 
 void Sprite::SetClip(int posx, int posy, int rectWidth, int rectHeight) {
@@ -41,7 +44,7 @@ void Sprite::Render(int posx, int posy) {
 	dst.y = posy;
 	dst.w = clipRect.w;
 	dst.h = clipRect.h;
-	SDL_RenderCopy(renderer, texture, clipRect, dst);
+	SDL_RenderCopy(Game.renderer, texture, clipRect, dst);
 
 }
 

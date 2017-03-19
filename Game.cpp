@@ -57,9 +57,9 @@ SDL_Renderer * Game::GetRenderer() {
 }
 
 void Game::run() {
-	while(QuitRequested() != true) {
-		Update();
-		Render();
+	while(state.QuitRequested() != true) {
+		state.Update();
+		state.Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(33);
 	}

@@ -12,7 +12,7 @@ class State {
 
 		bool QuitRequest();
 		void LoadAssets();
-		void Update();
+		void Update(float dt);
 		void Render();
 		
 	private:
