@@ -10,14 +10,14 @@ class State {
 	public:
 		State();
 
-		bool QuitRequest();
+		bool QuitRequested();
 		void LoadAssets();
-		void Update(float dt);
+		void Update(float dt = 0);
 		void Render();
 		
 	private:
-		Sprite background;
+		Sprite * background;
 		bool quitRequest;
-}
+};
 
 #endif

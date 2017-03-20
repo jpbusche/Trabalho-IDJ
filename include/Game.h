@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <string>
+#include <iostream>
 #include "State.h"
 
 using namespace std;
@@ -16,13 +16,13 @@ class Game {
 		void run();
 		SDL_Renderer * GetRenderer();
 		State & GetState();
-		Game & GetInstance();
+		static Game & GetInstance();
 
 	private:
-		Game * instance;
+		static Game * instance;
 		SDL_Window * window;
 		SDL_Renderer * renderer;
 		State * state;
-}
+};
 
 #endif

@@ -8,17 +8,17 @@ State::State() {
 }
 
 void State::LoadAssets() {
-
+	background->Open("img/ocean.jpg");
 }
 
 void State::Update(float dt) {
-	if(SDL_QuitResquested() == true) {
+	if(SDL_QuitRequested()) {
 		quitRequest = true;
 	}
 }
 
 void State::Render() {
-	background = new Sprite("img/ocean.jpg");
+	background->Render(0, 0);
 }
 
 bool State::QuitRequested() {

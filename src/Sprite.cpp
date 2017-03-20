@@ -22,29 +22,22 @@ void Sprite::Open(string file) {
 		texture = nullptr;
 		SDL_DestroyTexture(texture);
 	}
-	texture = IMG_LoadTexture(Game.renderer, file);
+	texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
 	if(texture == nullptr) {
 		printf("Textura nao pode ser carregada corretamente: %s\n", SDL_GetError());
 		exit(1);
 	}
-	SDl_QueryTexture(texture, nullptr, nullptr, widht, heigth);
-	SetClip(/* x */, /* y */, widht, height);
+	SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+	SetClip(0, 0, width, height);
 }
 
-void Sprite::SetClip(int posx, int posy, int rectWidth, int rectHeight) {
-	clipRect.x = posx;
-	clipRect.y = posy;
-	clipRect.w = rectWidth;
-	clipRect.h = rectHeight;
+void Sprite::SetClip(int x, int y, int w, int h) {
+	clipRect = new SDL_Rect {x, y, w, h};
 }
 
-void Sprite::Render(int posx, int posy) {
-	SDL_Rect dst;
-	dst.x = posx;
-	dst.y = posy;
-	dst.w = clipRect.w;
-	dst.h = clipRect.h;
-	SDL_RenderCopy(Game.renderer, texture, clipRect, dst);
+void Sprite::Render(int x, int y) {
+	SDL_Rect * dst = new SDL_Rect {x, y, clipRect->w, clipRect->h};
+	SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, clipRect, dst);
 
 }
 

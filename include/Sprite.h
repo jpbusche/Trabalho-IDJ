@@ -24,7 +24,7 @@ class Sprite {
 		SDL_Texture * texture;
 		int width;
 		int height;
-		SDL_Rect clipRect;
-}
+		SDL_Rect * clipRect;
+};
 
 #endif

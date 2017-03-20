@@ -1,7 +1,8 @@
 #include "Game.h"
-#include <cstdio>
 
 using namespace std;
+
+Game * Game::instance = nullptr;
 
 Game::Game(string title, int width, int height) {
 	
@@ -12,16 +13,16 @@ Game::Game(string title, int width, int height) {
 		instance = this;
 	}
 
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0) {
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
 		printf("Nao foi possivel inicializar a SDL: %s\n", SDL_GetError());
 		exit(1);
 	} else {
 		int img_flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
 		if(IMG_Init(img_flags) != img_flags) {
 			printf("Nao foi possivel inicializar a SDL_Image: %s\n", SDL_GetError());
-			exit(1)
+			exit(1);
 		} else {
-			window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, weight, height, 0);
+			window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
 			if(window == nullptr) {
 				printf("A janela nao pode ser criada: %s\n", SDL_GetError());
 				exit(1);
@@ -44,12 +45,12 @@ Game::~Game() {
 	SDL_Quit();
 }
 
-Game * Game::GetInstance() {
-	return instance;
+Game & Game::GetInstance() {
+	return * instance;
 }
 
 State & Game::GetState() {
-	return state;
+	return * state;
 }
 
 SDL_Renderer * Game::GetRenderer() {
@@ -57,9 +58,10 @@ SDL_Renderer * Game::GetRenderer() {
 }
 
 void Game::run() {
-	while(state.QuitRequested() != true) {
-		state.Update();
-		state.Render();
+	state->LoadAssets();
+	while(!state->QuitRequested()) {
+		state->Update();
+		state->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(33);
 	}
