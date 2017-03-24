@@ -13,6 +13,7 @@ void State::LoadAssets() {
 
 void State::Update(float dt) {
 	if(SDL_QuitRequested()) {
+		delete background;
 		quitRequest = true;
 	}
 }
