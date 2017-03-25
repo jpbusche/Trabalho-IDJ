@@ -17,7 +17,7 @@ class Face : public GameObject {
 		bool IsDead();
 	private:
 		int hitPoints = 30;
-		Sprite * sprite;
+		Sprite sprite;
 };
 
 #endif

@@ -24,7 +24,7 @@ class State {
 	private:
 		Sprite * background;
 		bool quitRequest;
-		vector < unique_ptr <GameObject> > objectArray;
+		vector <unique_ptr <GameObject>> objectArray;
 };
 
 #endif

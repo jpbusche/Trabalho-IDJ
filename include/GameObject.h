@@ -9,7 +9,7 @@ class GameObject {
 	public:
 		Rect * box;
 
-		virtual ~GameObject();
+		virtual ~GameObject() = default;
 		virtual void Update(float dt) = 0;
 		virtual void Render() = 0;
 		virtual bool IsDead() = 0;

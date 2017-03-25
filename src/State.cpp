@@ -1,5 +1,6 @@
 #include "State.h"
 #include "Face.h"
+#include "Vec2.h"
 
 using namespace std;
 
@@ -28,8 +29,10 @@ void State::Update(float dt) {
 
 void State::Render() {
 	background->Render(0, 0);
-	for (int i = 0; i < objectArray.size(); i++) {
-	}
+	for(int i = 0; i < objectArray.size(); i++) {
+        Face * face = (Face*) objectArray[i].get();
+        face->Render();
+    }
 }
 
 void State::Input() {
@@ -52,12 +55,20 @@ void State::Input() {
             if( event.key.keysym.sym == SDLK_ESCAPE ) {
                 quitRequest = true;
             } else {
-                AddObject((float)mouseX, (float)mouseY);
+                int rand_ang = rand() % 361;
+                double angle = (rand_ang) * acos(-1) / 180.0;
+                Vec2 vector((float)mouseX + 200, (float)mouseY);
+                vector = vector.Rotate(vector, angle, (float)mouseX, (float)mouseY);
+                AddObject(vector.GetX(), vector.GetY());
             }
         }
     }
 }
 
+void State::AddObject(float mouseX, float mouseY) {
+    Face * face = new Face(mouseX, mouseY);
+    objectArray.emplace_back(unique_ptr<GameObject>(face));
+}
 
 bool State::QuitRequested() {
 	return quitRequest;
