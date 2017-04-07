@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cstdio>
 #include "TileMap.h"
 
 
@@ -10,8 +11,13 @@ TileMap::TileMap(string file, TileSet * tileSet) {
 }
 
 void TileMap::Load(string file) {
+	tileMatrix.clear();
 	int n;
 	fstream tileFile(file);
+	if(not tileFile.is_open()) {
+		printf("Erro na abertura do arquivo\n");
+		exit(1);
+	}
 	tileFile >> mapWidth;
 	tileFile.ignore(2, ',');
 	tileFile >> mapHeight;
@@ -19,7 +25,7 @@ void TileMap::Load(string file) {
 	tileFile >> mapDepth;
 	tileFile.ignore(2, ',');
 	while(tileFile >> n) {
-		tileMatrix.push_back(n - 1);
+		tileMatrix.emplace_back(n - 1);
 		tileFile.ignore(2, ',');
 	}
 }
@@ -34,19 +40,19 @@ int & TileMap::At(int x, int y, int z) {
 }
 
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
-	for(int i = 0; i < mapWidth; i++) {
-		for(int j = 0; j < mapHeight; j++) {
-			int index = At(i, j, layer);
-			int posX = i * tileSet->GetTileWidth();
-			int posY = j * tileSet->GetTileHeight();
+	for(int i = 0; i < mapHeight; i++) {
+		for(int j = 0; j < mapWidth; j++) {
+			int index = At(j, i, layer);
+			float posX = j * tileSet->GetTileWidth();
+			float posY = i * tileSet->GetTileHeight();
 			tileSet->Render(index, posX, posY);
 		}
 	}
 }
 
 void TileMap::Render(int cameraX, int cameraY) {
-	for(int i = 0; i < mapDepth; i++) {
-		RenderLayer(i);
+	for(int layer = 0; layer < mapDepth; layer++) {
+		RenderLayer(layer);
 	}
 }
 

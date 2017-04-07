@@ -7,6 +7,8 @@ using namespace std;
 State::State() {
 	quitRequest = false;
 	background = new Sprite();
+    tileSet = new TileSet(64, 64, "img/tileset.png");
+    tileMap = new TileMap("map/tileMap.txt", tileSet);
 }
 
 State::~State() {
@@ -29,6 +31,7 @@ void State::Update(float dt) {
 
 void State::Render() {
 	background->Render(0, 0);
+    tileMap->Render(0, 0);
 	for(int i = 0; i < objectArray.size(); i++) {
         Face * face = (Face*) objectArray[i].get();
         face->Render();

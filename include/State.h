@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include "GameObject.h"
 #include "Sprite.h"
+#include "TileMap.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ class State {
 		void AddObject(float mouseX, float mouseY);
 		
 	private:
+		TileSet * tileSet;
+		TileMap * tileMap;
 		Sprite * background;
 		bool quitRequest;
 		vector <unique_ptr <GameObject>> objectArray;
