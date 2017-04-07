@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "TileSet.h"
 
 using namespace std;
@@ -9,12 +9,9 @@ TileSet::TileSet(int w, int h, string file) : tileWidth(w), tileHeight(h), tileS
 } 
 
 void TileSet::Render(unsigned index, float x, float y) {
-	if(index > 0 && index < ((rows * columns) - 1)) {
+	if(index >= 0 && index <= ((rows * columns) - 1)) {
 		tileSet.SetClip(x, y, tileWidth, tileHeight);
 		tileSet.Render(x, y);	
-	} else {
-		printf("Index passado nao eh valido\n");
-		exit(1);
 	}
 }
 
