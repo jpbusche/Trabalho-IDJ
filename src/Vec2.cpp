@@ -1,5 +1,5 @@
-#include "Vec2.h"
 #include <cmath>
+#include "Vec2.h"
 
 using namespace std;
 
