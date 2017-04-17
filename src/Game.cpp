@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Resources.h"
+
 
 using namespace std;
 
@@ -67,4 +69,6 @@ void Game::run() {
 		SDL_RenderPresent(renderer);
 		SDL_Delay(33);
 	}
+
+	Resources::ClearImages();
 }
