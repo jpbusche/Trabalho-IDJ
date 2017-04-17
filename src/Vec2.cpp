@@ -3,6 +3,10 @@
 
 using namespace std;
 
+Vec2::Vec2() : x(0), y(0) {
+
+}
+
 Vec2::Vec2(float posX, float posY) : x(posX), y(posY) {
 
 }

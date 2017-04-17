@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "Resources.h"
 
-
 using namespace std;
 
 Game * Game::instance = nullptr;
@@ -37,6 +36,8 @@ Game::Game(string title, int width, int height) {
 		}
 	}
 	state = new State();
+	frameStart = 0;
+	dt = 0;
 }
 
 Game::~Game() {
@@ -64,6 +65,7 @@ SDL_Renderer * Game::GetRenderer() {
 void Game::run() {
 	state->LoadAssets();
 	while(!state->QuitRequested()) {
+		CalculateDeltaTime();
 		state->Update();
 		state->Render();
 		SDL_RenderPresent(renderer);
@@ -71,4 +73,14 @@ void Game::run() {
 	}
 
 	Resources::ClearImages();
+}
+
+void Game::CalculateDeltaTime() {
+	int frameEnd = SDL_GetTicks();
+	dt = (frameEnd - frameStart) / 1000.0;
+	frameStart = frameEnd;
+}
+
+float Game::GetDeltaTime() {
+	return dt;
 }
