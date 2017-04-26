@@ -21,13 +21,13 @@ void Camera::Update(float dt) {
 	speed.y = 0;
 	if(focus) {
 	} else {
-		if(input.IsKeyDown(SDLK_RIGHT)) {
+		if(input.IsKeyDown(SDLK_LEFT)) {
 			speed.x = 1.0 / dt;
-		} else if(input.IsKeyDown(SDLK_LEFT)) {
+		} else if(input.IsKeyDown(SDLK_RIGHT)) {
 			speed.x = - 1.0 / dt;
-		} else if(input.IsKeyDown(SDLK_UP)) {
-			speed.y = - 1.0 / dt;
 		} else if(input.IsKeyDown(SDLK_DOWN)) {
+			speed.y = - 1.0 / dt;
+		} else if(input.IsKeyDown(SDLK_UP)) {
 			speed.y = 1.0 / dt;
 		}
 	}

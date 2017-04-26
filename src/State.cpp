@@ -2,6 +2,7 @@
 #include "Face.h"
 #include "Vec2.h"
 #include "InputManager.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -21,8 +22,9 @@ void State::LoadAssets() {
 }
 
 void State::Update(float dt) {
-	InputManager &input = InputManager::GetInstance();
+	InputManager & input = InputManager::GetInstance();
     input.Update();
+    Camera::Update(dt);
     if(input.KeyPress(SDLK_ESCAPE) || input.QuitRequested()) {
         quitRequest = true;
     }
@@ -40,7 +42,7 @@ void State::Update(float dt) {
 
 void State::Render() {
 	background->Render(0, 0);
-    tileMap->Render(0, 0);
+    tileMap->Render(Camera::pos.x, Camera::pos.y);
 	for(int i = 0; i < objectArray.size(); i++) {
         Face * face = (Face*) objectArray[i].get();
         face->Render();

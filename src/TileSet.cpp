@@ -13,7 +13,7 @@ void TileSet::Render(unsigned index, float x, float y) {
 		int posX = tileWidth * (index % columns);
 		int posY = tileHeight * (index / columns);
 		tileSet.SetClip(posX, posY, tileWidth, tileHeight);
-		tileSet.Render(y, x);	
+		tileSet.Render(x, y);	
 	}
 }
 

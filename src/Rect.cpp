@@ -1,4 +1,5 @@
 #include "Rect.h"
+#include <cstdio>
 
 Rect::Rect(float posX, float posY, float width, float height) : x(posX), y(posY), w(width), h(height){
 	x -= w / 2.0;

@@ -1,6 +1,6 @@
+#include "Camera.h"
 #include "Face.h"
 #include "InputManager.h"
-#include <cstdio>
 
 Face::Face(float x, float y) : sprite(Sprite("img/penguinface.png")) {
 	box = new Rect(x, y, sprite.GetWidth(), sprite.GetHeight());
@@ -22,7 +22,7 @@ void Face::Update(float dt) {
 }
 
 void Face::Render() {
-	sprite.Render(box->x, box->y);
+	sprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y);
 }
 
 bool Face::IsDead() {
