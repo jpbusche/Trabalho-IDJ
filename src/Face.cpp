@@ -12,11 +12,9 @@ void Face::Damage(int damage) {
 
 void Face::Update(float dt) {
 	InputManager & input = InputManager::GetInstance();
-	for(int i = 0; i < 6; i++) {
-		if(input.MousePress(i)) {
-			if(box->IsInside((float)input.GetMouseX(), (float)input.GetMouseY())) {
-				Damage(rand() % 10 + 10);	
-			}
+	if(input.MousePress(SDL_BUTTON_LEFT)) {
+		if(box->IsInside((float)input.GetMouseX(), (float)input.GetMouseY())) {
+			Damage(rand() % 10 + 10);	
 		}
 	}
 }
