@@ -11,6 +11,8 @@ Alien::Alien(float x, float y, int nMinions) : sprite(Sprite("img/alien.png")) {
 	hitPoints = 30;
 	speed.x = 0;
 	speed.y = 0;
+	move.x = 0;
+	move.y = 0;
 
 	double arc = 0;
 	for(int i = 0; i < nMinions; i++) {
@@ -31,14 +33,13 @@ void Alien::Update(float dt) {
 	InputManager & input = InputManager::GetInstance();
 	float mouseX = (float)input.GetMouseX();
 	float mouseY = (float)input.GetMouseY();
-	float moveX, moveY;
 
 	if(input.MousePress(SDL_BUTTON_LEFT)) {
 		Action action = Action(mouseX, mouseY, Action::ActionType::SHOOT);
 		taskQueue.emplace(action);
 	} else if(input.MousePress(SDL_BUTTON_RIGHT)) {
-		moveX = mouseX;
-		moveY = mouseY;
+		move.x = mouseX;
+		move.y = mouseY;
 		Action action = Action(box->x, box->y, Action::ActionType::MOVE);
 		taskQueue.emplace(action);
 	}
@@ -47,18 +48,18 @@ void Alien::Update(float dt) {
 		Action action = taskQueue.front();
 		if(action.type == Action::ActionType::MOVE) {
 			double deltaT = 200;
-			speed.x = fabs(action.pos.x - moveX) / deltaT;
-			speed.y = fabs(action.pos.y - moveY) / deltaT;
+			speed.x = fabs(action.pos.x - move.x) / deltaT;
+			speed.y = fabs(action.pos.y - move.y) / deltaT;
 
-			const float EPS = 1e-9;
-			if(fabs(box->x - moveX) >= EPS && fabs(box->y - moveY) >= EPS) {
-				if(moveX > box->x) {
+			const float EPS = 4;
+			if(fabs(box->x - move.x) >= EPS && fabs(box->y - move.y) >= EPS) {
+				if(move.x > box->x) {
 					box->x += speed.x;
 				} else {
 					box->x -= speed.x;
 				}
 
-				if(moveY > box->y) {
+				if(move.y > box->y) {
 					box->y += speed.y;
 				} else {
 					box->y -= speed.y;

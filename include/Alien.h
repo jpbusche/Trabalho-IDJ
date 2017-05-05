@@ -38,6 +38,7 @@ class Alien : public GameObject{
 
 		Sprite sprite;
 		Vec2 speed;
+		Vec2 move;
 		int hitPoints;
 		queue<Action> taskQueue;
 		vector<Minion> minionArray;
