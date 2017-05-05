@@ -1,5 +1,6 @@
 #include "State.h"
 #include "Face.h"
+#include "Alien.h"
 #include "Vec2.h"
 #include "InputManager.h"
 #include "Camera.h"
@@ -11,6 +12,9 @@ State::State() {
 	background = new Sprite();
     tileSet = new TileSet(64, 64, "img/tileset.png");
     tileMap = new TileMap("map/tileMap.txt", tileSet);
+
+    Alien * alien = new Alien(512, 300, 0);
+    objectArray.emplace_back(alien);
 }
 
 State::~State() {
@@ -28,15 +32,11 @@ void State::Update(float dt) {
     if(input.KeyPress(SDLK_ESCAPE) || input.QuitRequested()) {
         quitRequest = true;
     }
-    if(input.KeyPress(SDLK_SPACE)) {
-        AddObject((float)input.GetMouseX(), (float)input.GetMouseY());
-    }
-	for(int i = 0; i < objectArray.size(); i++) {
-		Face * face = (Face*) objectArray[i].get();
-        face->Update();
-		if (face->IsDead()) {
-			objectArray.erase(objectArray.begin() + i);
-		}
+	for(auto object = objectArray.begin(); object < objectArray.end(); object++) {
+        (*object)->Update(dt);
+        if((*object)->IsDead()) {
+            objectArray.erase(object);
+        }
 	}
 }
 
@@ -49,13 +49,13 @@ void State::Render() {
     }
 }   
 
-void State::AddObject(float mouseX, float mouseY) {
-    double angle = ((rand() % 360) * acos(-1)) / 180.0;
-    Vec2 vector(mouseX + 200, mouseY);
-    vector = vector.Rotate(vector, angle, mouseX, mouseY);
-    Face * face = new Face(vector.GetX(), vector.GetY());
-    objectArray.emplace_back(unique_ptr<GameObject>(face));
-}
+// void State::AddObject(float mouseX, float mouseY) {
+//     double angle = ((rand() % 360) * acos(-1)) / 180.0;
+//     Vec2 vector(mouseX + 200, mouseY);
+//     vector = vector.Rotate(vector, angle, mouseX, mouseY);
+//     Face * face = new Face(vector.GetX(), vector.GetY());
+//     objectArray.emplace_back(unique_ptr<GameObject>(face));
+// }
 
 bool State::QuitRequested() {
 	return quitRequest;
