@@ -43,7 +43,7 @@ void InputManager::Update() {
 		} else if(event.type == SDL_KEYUP) {
 			keyState[event.key.keysym.sym] = false;
 			keyUpdate[event.key.keysym.sym] = updateCounter;
-		} else if(event.type == SDL_MOUSEBUTTONDOWN && not event.key.repeat) {
+		} else if(event.type == SDL_MOUSEBUTTONDOWN) {
 			mouseState[event.button.button] = true;
 			mouseUpdate[event.button.button] = updateCounter;
 		} else if(event.type == SDL_MOUSEBUTTONUP) {

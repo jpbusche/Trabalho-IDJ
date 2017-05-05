@@ -11,6 +11,13 @@ Alien::Alien(float x, float y, int nMinions) : sprite(Sprite("img/alien.png")) {
 	hitPoints = 30;
 	speed.x = 0;
 	speed.y = 0;
+
+	double arc = 0;
+	for(int i = 0; i < nMinions; i++) {
+		const double PI = acos(-1);
+		arc += 2 * PI / nMinions;
+		minionArray.emplace_back(Minion(this, arc));
+	}
 }
 
 Alien::~Alien() {
@@ -24,11 +31,14 @@ void Alien::Update(float dt) {
 	InputManager & input = InputManager::GetInstance();
 	float mouseX = (float)input.GetMouseX();
 	float mouseY = (float)input.GetMouseY();
+	float moveX, moveY;
 
 	if(input.MousePress(SDL_BUTTON_LEFT)) {
 		Action action = Action(mouseX, mouseY, Action::ActionType::SHOOT);
 		taskQueue.emplace(action);
 	} else if(input.MousePress(SDL_BUTTON_RIGHT)) {
+		moveX = mouseX;
+		moveY = mouseY;
 		Action action = Action(box->x, box->y, Action::ActionType::MOVE);
 		taskQueue.emplace(action);
 	}
@@ -37,18 +47,18 @@ void Alien::Update(float dt) {
 		Action action = taskQueue.front();
 		if(action.type == Action::ActionType::MOVE) {
 			double deltaT = 200;
-			speed.x = fabs(action.pos.x - mouseX) / deltaT;
-			speed.y = fabs(action.pos.y - mouseY) / deltaT;
+			speed.x = fabs(action.pos.x - moveX) / deltaT;
+			speed.y = fabs(action.pos.y - moveY) / deltaT;
 
-			const double EPS = 1e-9;
-			if(fabs(box->x - mouseX) >= EPS && fabs(box->y - mouseY) >= EPS) {
-				if(mouseX > box->x) {
+			const float EPS = 1e-9;
+			if(fabs(box->x - moveX) >= EPS && fabs(box->y - moveY) >= EPS) {
+				if(moveX > box->x) {
 					box->x += speed.x;
 				} else {
 					box->x -= speed.x;
 				}
 
-				if(mouseY > box->y) {
+				if(moveY > box->y) {
 					box->y += speed.y;
 				} else {
 					box->y -= speed.y;
@@ -57,18 +67,22 @@ void Alien::Update(float dt) {
 				taskQueue.pop();
 			}
 		} else if(action.type == Action::ActionType::SHOOT) {
+			printf("Atirou\n");
 			taskQueue.pop();
 		}
+	}
+
+	for(auto &minion : minionArray) {
+		minion.Update(); 
 	}
 
 }
 
 void Alien::Render() {
 	sprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y);
-	// for(int i = 0; i < minionArray.size(); i++) {
-	// 	Minion * minion = (Minion*) minionArray[i].get();
-	// 	minion->Render(); 
-	// }
+	for(auto &minion : minionArray) {
+		minion.Render(); 
+	}
 }
 
 bool Alien::IsDead() {

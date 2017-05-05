@@ -13,7 +13,7 @@ State::State() {
     tileSet = new TileSet(64, 64, "img/tileset.png");
     tileMap = new TileMap("map/tileMap.txt", tileSet);
 
-    Alien * alien = new Alien(512, 300, 0);
+    Alien * alien = new Alien(512, 300, 10);
     objectArray.emplace_back(alien);
 }
 
