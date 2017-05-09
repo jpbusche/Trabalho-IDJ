@@ -12,10 +12,10 @@ using namespace std;
 
 class Alien : public GameObject{
 	public:
-		Alien(float x, float y, int nMinions);
+		Alien(double x, double y, int nMinions);
 		~Alien();
 
-		void Update(float dt);
+		void Update(double dt);
 		void Render();
 		bool IsDead();
 
@@ -27,7 +27,7 @@ class Alien : public GameObject{
 					SHOOT
 				};
 				
-				Action(float x, float y, ActionType type) {
+				Action(double x, double y, ActionType type) {
 					pos = Vec2(x, y);
 					this->type = type;
 				};

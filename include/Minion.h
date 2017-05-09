@@ -11,7 +11,7 @@ class Minion : public GameObject {
 	public:
 		Minion(GameObject * minionCenter, double arcOffSet = 0);
 
-		void Update(float dt = 0);
+		void Update(double dt = 0);
 		void Render();
 		void Shoot(Vec2 pos);
 		bool IsDead();

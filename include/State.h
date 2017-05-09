@@ -17,10 +17,10 @@ class State {
 
 		bool QuitRequested();
 		void LoadAssets();
-		void Update(float dt = 0);
+		void Update(double dt = 0);
 		void Render();
 		void Input();
-		void AddObject(float mouseX, float mouseY);
+		void AddObject(double mouseX, double mouseY);
 		
 	private:
 		TileSet * tileSet;

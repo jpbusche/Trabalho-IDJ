@@ -14,7 +14,7 @@ class Game {
 		~Game();
 
 		void run();
-		float GetDeltaTime();
+		double GetDeltaTime();
 		SDL_Renderer * GetRenderer();
 		State & GetState();
 		static Game & GetInstance();
@@ -23,7 +23,7 @@ class Game {
 		void CalculateDeltaTime();
 
 		int frameStart;
-		float dt;
+		double dt;
 		static Game * instance;
 		SDL_Window * window;
 		SDL_Renderer * renderer;

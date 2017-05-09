@@ -15,10 +15,9 @@ void Camera::Unfollow() {
 	focus = nullptr;
 }
 
-void Camera::Update(float dt) {
+void Camera::Update(double dt) {
 	InputManager & input = InputManager::GetInstance();
-	speed.x = 0;
-	speed.y = 0;
+	speed = Vec2(0, 0);
 	if(focus) {
 	} else {
 		if(input.IsKeyDown(SDLK_LEFT)) {
@@ -31,6 +30,6 @@ void Camera::Update(float dt) {
 			speed.y = 1.0 / dt;
 		}
 	}
-	pos.x += speed.x;
-	pos.y += speed.y;
+	pos.x += speed.GetX();
+	pos.y += speed.GetY();
 }

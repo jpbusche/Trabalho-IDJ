@@ -1,5 +1,4 @@
 #include "State.h"
-#include "Face.h"
 #include "Alien.h"
 #include "Vec2.h"
 #include "InputManager.h"
@@ -25,7 +24,7 @@ void State::LoadAssets() {
 	background->Open("img/ocean.jpg");
 }
 
-void State::Update(float dt) {
+void State::Update(double dt) {
 	InputManager & input = InputManager::GetInstance();
     input.Update();
     Camera::Update(dt);
@@ -43,19 +42,12 @@ void State::Update(float dt) {
 void State::Render() {
 	background->Render(0, 0);
     tileMap->Render(Camera::pos.x, Camera::pos.y);
-	for(int i = 0; i < objectArray.size(); i++) {
-        Face * face = (Face*) objectArray[i].get();
-        face->Render();
+    for(auto object = objectArray.begin(); object < objectArray.end(); object++) {
+        (*object)->Render();
     }
 }   
 
-// void State::AddObject(float mouseX, float mouseY) {
-//     double angle = ((rand() % 360) * acos(-1)) / 180.0;
-//     Vec2 vector(mouseX + 200, mouseY);
-//     vector = vector.Rotate(vector, angle, mouseX, mouseY);
-//     Face * face = new Face(vector.GetX(), vector.GetY());
-//     objectArray.emplace_back(unique_ptr<GameObject>(face));
-// }
+void State::AddObject(double mouseX, double mouseY) {}
 
 bool State::QuitRequested() {
 	return quitRequest;

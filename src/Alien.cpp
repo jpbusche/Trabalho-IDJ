@@ -6,13 +6,11 @@
 
 using namespace std;
 
-Alien::Alien(float x, float y, int nMinions) : sprite(Sprite("img/alien.png")) {
+Alien::Alien(double x, double y, int nMinions) : sprite(Sprite("img/alien.png")) {
 	box = new Rect(x, y, sprite.GetWidth(), sprite.GetHeight());
 	hitPoints = 30;
-	speed.x = 0;
-	speed.y = 0;
-	move.x = 0;
-	move.y = 0;
+	speed = Vec2(0, 0);
+	move = Vec2(0, 0);
 
 	double arc = 0;
 	for(int i = 0; i < nMinions; i++) {
@@ -29,10 +27,10 @@ Alien::~Alien() {
 	delete box;
 }
 
-void Alien::Update(float dt) {
+void Alien::Update(double dt) {
 	InputManager & input = InputManager::GetInstance();
-	float mouseX = (float)input.GetMouseX();
-	float mouseY = (float)input.GetMouseY();
+	double mouseX = (double)input.GetMouseX();
+	double mouseY = (double)input.GetMouseY();
 
 	if(input.MousePress(SDL_BUTTON_LEFT)) {
 		Action action = Action(mouseX, mouseY, Action::ActionType::SHOOT);
@@ -51,7 +49,7 @@ void Alien::Update(float dt) {
 			speed.x = fabs(action.pos.x - move.x) / deltaT;
 			speed.y = fabs(action.pos.y - move.y) / deltaT;
 
-			const float EPS = 4;
+			const double EPS = 4;
 			if(fabs(box->x - move.x) >= EPS && fabs(box->y - move.y) >= EPS) {
 				if(move.x > box->x) {
 					box->x += speed.x;

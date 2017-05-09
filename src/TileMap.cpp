@@ -43,8 +43,8 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
 	for(int i = 0; i < mapHeight; i++) {
 		for(int j = 0; j < mapWidth; j++) {
 			int index = At(j, i, layer);
-			float posX = i * tileSet->GetTileWidth() + cameraX;
-			float posY = j * tileSet->GetTileHeight() + cameraY;
+			double posX = i * tileSet->GetTileWidth() + cameraX;
+			double posY = j * tileSet->GetTileHeight() + cameraY;
 			tileSet->Render(index, posX, posY);
 		}
 	}

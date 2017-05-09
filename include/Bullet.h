@@ -9,16 +9,16 @@ using namespace std;
 
 class Bullet : public GameObject {
 	public:
-		Bullet(float x, float y, float angle, float speed, float maxDistance, string sprite_name);
+		Bullet(double x, double y, double angle, double speed, double maxDistance, string sprite_name);
 
-		void Update(float dt = 0);
+		void Update(double dt = 0);
 		void Render();
 		bool IsDead();
 
 	private:
 		Sprite sprite;
-		Vec2 speed;
-		float distanceLeft;
+		Vec2 bulletSpeed;
+		double distanceLeft;
 };
 
 #endif

@@ -5,14 +5,14 @@ using namespace std;
 
 class Rect {
 	public:
-		float x;
-		float y;
-		int w;
-		int h;
+		double x;
+		double y;
+		double w;
+		double h;
 
-		Rect(float x, float y, float w ,float h);
+		Rect(double x, double y, double w ,double h);
 
-		bool IsInside(float mouseX, float mouseY);
+		bool IsInside(double mouseX, double mouseY);
 };
 
 #endif

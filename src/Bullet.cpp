@@ -3,19 +3,18 @@
 
 using namespace std;
 
-Bullet::Bullet(float x, float y, float angle, float speed, float maxDistance, string sprite_name) {
-	sprite = Sprite(sprite_name);
+Bullet::Bullet(double x, double y, double angle, double speed, double maxDistance, string spriteName) {
+	sprite = Sprite(spriteName);
 	box = new Rect(x, y, sprite.GetWidth(), sprite.GetHeight());
-	speed.x = cos(angle) * speed;
-	speed.y = sin(angle) * speed;
+	bulletSpeed = Vec2(cos(angle) * speed, sin(angle) * speed);
 	distanceLeft = maxDistance;	
 }
 
-void Bullet::Update(float dt) {
-	box->x -= speed.GetX() * dt;
-	box->y -= speed.GetY() * dt;
+void Bullet::Update(double dt) {
+	box->x -= bulletSpeed.GetX() * dt;
+	box->y -= bulletSpeed.GetY() * dt;
 
-	float dist = hypot(speed.GetX(), speed.GetY());
+	double dist = hypot(bulletSpeed.GetX(), bulletSpeed.GetY());
 
 	distanceLeft -= dist;
 }

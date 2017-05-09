@@ -8,7 +8,7 @@ TileSet::TileSet(int w, int h, string file) : tileWidth(w), tileHeight(h) {
 	rows = tileSet.GetHeight() / tileHeight; 
 } 
 
-void TileSet::Render(unsigned index, float x, float y) {
+void TileSet::Render(unsigned index, double x, double y) {
 	if(index >= 0 && index <= ((rows * columns) - 1)) {
 		int posX = tileWidth * (index % columns);
 		int posY = tileHeight * (index / columns);

@@ -9,16 +9,16 @@ using namespace std;
 Minion::Minion(GameObject * minionCenter, double arcOffSet) : sprite(Sprite("img/minion.png")) {
 	center = minionCenter;
 	arc = arcOffSet;
-	float posX = center->box->x + center->box->w / 2;
-	float posY = center->box->y + center->box->h / 2; 
+	double posX = center->box->x + center->box->w / 2;
+	double posY = center->box->y + center->box->h / 2; 
 	box = new Rect(posX, posY, sprite.GetWidth(), sprite.GetHeight());
 }
 
-void Minion::Update(float dt) {
+void Minion::Update(double dt) {
 	const double PI = acos(-1);
 	double speed = PI / 30;
-	float posX = center->box->x + center->box->w / 2;
-	float posY = center->box->y + center->box->h / 2; 
+	double posX = center->box->x + center->box->w / 2;
+	double posY = center->box->y + center->box->h / 2; 
 
 	Vec2 pos = Vec2(posX, posY);
 	pos = pos.Translate(pos, center->box->w, 0);

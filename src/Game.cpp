@@ -81,6 +81,6 @@ void Game::CalculateDeltaTime() {
 	frameStart = frameEnd;
 }
 
-float Game::GetDeltaTime() {
+double Game::GetDeltaTime() {
 	return dt;
 }
