@@ -13,7 +13,7 @@ State::State() {
     tileMap = new TileMap("map/tileMap.txt", tileSet);
 
     Alien * alien = new Alien(512, 300, 10);
-    objectArray.emplace_back(alien);
+    AddObject(alien);
 }
 
 State::~State() {
@@ -47,7 +47,9 @@ void State::Render() {
     }
 }   
 
-void State::AddObject(double mouseX, double mouseY) {}
+void State::AddObject(GameObject * object) {
+    objectArray.emplace_back(object);
+}
 
 bool State::QuitRequested() {
 	return quitRequest;

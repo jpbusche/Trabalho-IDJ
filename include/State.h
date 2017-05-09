@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "TileMap.h"
+#include "GameObject.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ class State {
 		void Update(double dt = 0);
 		void Render();
 		void Input();
-		void AddObject(double mouseX, double mouseY);
+		void AddObject(GameObject * object);
 		
 	private:
 		TileSet * tileSet;

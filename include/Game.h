@@ -16,7 +16,7 @@ class Game {
 		void run();
 		double GetDeltaTime();
 		SDL_Renderer * GetRenderer();
-		State & GetState();
+		State * GetState();
 		static Game & GetInstance();
 
 	private:

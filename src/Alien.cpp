@@ -45,7 +45,7 @@ void Alien::Update(double dt) {
 	if(!taskQueue.empty()) {
 		Action action = taskQueue.front();
 		if(action.type == Action::ActionType::MOVE) {
-			double deltaT = 200;
+			double deltaT = 100;
 			speed.x = fabs(action.pos.x - move.x) / deltaT;
 			speed.y = fabs(action.pos.y - move.y) / deltaT;
 
@@ -66,7 +66,19 @@ void Alien::Update(double dt) {
 				taskQueue.pop();
 			}
 		} else if(action.type == Action::ActionType::SHOOT) {
-			printf("Atirou\n");
+			double minDist = 1e9;
+			int minionIndex = 0;
+			for(int i = 0; i < minionArray.size(); i++) {
+				Minion minion = minionArray[minionIndex];
+				double dist = hypot(minion.box->x - action.pos.x, minion.box->y - action.pos.y);
+				if(dist < minDist) {
+					minionIndex = i;
+					minDist = dist;
+				}
+			}
+
+			Minion minion = minionArray[minionIndex];
+			minion.Shoot(action.pos);
 			taskQueue.pop();
 		}
 	}

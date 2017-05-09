@@ -1,8 +1,11 @@
 #include <cmath>
 #include <cstdio>
 #include "Minion.h"
-#include "Rect.h"
+#include "Bullet.h"
+#include "State.h"
+#include "Game.h"
 #include "Camera.h"
+#include "InputManager.h"
 
 using namespace std;
 
@@ -31,11 +34,19 @@ void Minion::Update(double dt) {
 }
 
 void Minion::Render() {
-	sprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y);
+	sprite.Render(box->x + Camera::pos.GetX(), box->y + Camera::pos.GetY());
 }
 
 void Minion::Shoot(Vec2 pos) {
-	//TODO
+	InputManager & input = InputManager::GetInstance();
+	double angle = atan2(box->x - pos.x, box->y - pos.y);
+	double speed = 50;
+	double maxDistance = 10000;
+
+	Bullet * minionBullet = new Bullet(box->x, box->y, angle, speed, maxDistance, "img/minionbullet1.png");
+
+	State * state = Game::GetInstance().GetState();
+	state->AddObject(minionBullet);
 }
 
 bool Minion::IsDead() {
