@@ -31,10 +31,11 @@ void State::Update(double dt) {
     if(input.KeyPress(SDLK_ESCAPE) || input.QuitRequested()) {
         quitRequest = true;
     }
-	for(auto object = objectArray.begin(); object < objectArray.end(); object++) {
-        (*object)->Update(dt);
-        if((*object)->IsDead()) {
-            objectArray.erase(object);
+    for(int index = 0; index < objectArray.size(); index++) {
+        objectArray[index]->Update(dt);
+        if(objectArray[index]->IsDead()) {
+            objectArray.erase(objectArray.begin() + index);
+            break;
         }
 	}
 }

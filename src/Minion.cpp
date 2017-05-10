@@ -39,9 +39,9 @@ void Minion::Render() {
 
 void Minion::Shoot(Vec2 pos) {
 	InputManager & input = InputManager::GetInstance();
-	double angle = atan2(box->x - pos.x, box->y - pos.y);
-	double speed = 50;
-	double maxDistance = 10000;
+	double angle = atan2(box->y - pos.y, box->x - pos.x);
+	double speed = 200;
+	double maxDistance = 16000;
 
 	Bullet * minionBullet = new Bullet(box->x, box->y, angle, speed, maxDistance, "img/minionbullet1.png");
 
