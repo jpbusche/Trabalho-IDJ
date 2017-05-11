@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Alien::Alien(double x, double y, int nMinions) : sprite(Sprite("img/alien.png")) {
+Alien::Alien(double x, double y, int nMinions,double alienRotation) : sprite(Sprite("img/alien.png")) {
+	rotation = alienRotation;
 	box = new Rect(x, y, sprite.GetWidth(), sprite.GetHeight());
 	hitPoints = 30;
 	speed = Vec2(0, 0);
@@ -14,9 +15,8 @@ Alien::Alien(double x, double y, int nMinions) : sprite(Sprite("img/alien.png"))
 
 	double arc = 0;
 	for(int i = 0; i < nMinions; i++) {
-		const double PI = acos(-1);
-		arc += 2 * PI / nMinions;
-		minionArray.emplace_back(Minion(this, arc));
+		arc 	= i * ( 360 / nMinions);
+		minionArray.emplace_back(Minion(this, arc, arc));
 	}
 }
 
@@ -28,6 +28,12 @@ Alien::~Alien() {
 }
 
 void Alien::Update(double dt) {
+	
+	rotation -= 0.5;
+	if(rotation < 0) {
+		rotation += 360;		
+	}
+
 	InputManager & input = InputManager::GetInstance();
 	double mouseX = (double)input.GetMouseX();
 	double mouseY = (double)input.GetMouseY();
@@ -69,7 +75,7 @@ void Alien::Update(double dt) {
 			double minDist = 1e9;
 			int minionIndex = 0;
 			for(int i = 0; i < minionArray.size(); i++) {
-				Minion minion = minionArray[minionIndex];
+				Minion minion = minionArray[i];
 				double dist = hypot(minion.box->x - action.pos.x, minion.box->y - action.pos.y);
 				if(dist < minDist) {
 					minionIndex = i;
@@ -84,13 +90,13 @@ void Alien::Update(double dt) {
 	}
 
 	for(auto &minion : minionArray) {
-		minion.Update(); 
+		minion.Update(dt); 
 	}
 
 }
 
 void Alien::Render() {
-	sprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y);
+	sprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y, rotation);
 	for(auto &minion : minionArray) {
 		minion.Render(); 
 	}

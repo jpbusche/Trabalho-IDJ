@@ -9,9 +9,9 @@ using namespace std;
 
 class Minion : public GameObject {
 	public:
-		Minion(GameObject * minionCenter, double arcOffSet = 0);
+		Minion(GameObject * minionCenter, double arcOffSet = 0, double minionRotation = 0);
 
-		void Update(double dt = 0);
+		void Update(double dt);
 		void Render();
 		void Shoot(Vec2 pos);
 		bool IsDead();

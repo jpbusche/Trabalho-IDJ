@@ -12,7 +12,7 @@ using namespace std;
 
 class Alien : public GameObject{
 	public:
-		Alien(double x, double y, int nMinions);
+		Alien(double x, double y, int nMinions, double alienRotation = 0);
 		~Alien();
 
 		void Update(double dt);

@@ -8,6 +8,7 @@ using namespace std;
 class GameObject {
 	public:
 		Rect * box;
+		double rotation;
 
 		virtual ~GameObject() = default;
 		virtual void Update(double dt) = 0;
