@@ -9,7 +9,7 @@ using namespace std;
 
 class Bullet : public GameObject {
 	public:
-		Bullet(double x, double y, double angle, double speed, double maxDistance, string sprite_name);
+		Bullet(double x, double y, double angle, double speed, double maxDistance, string sprite_name, int frameCount, double frameTime);
 
 		void Update(double dt = 0);
 		void Render();

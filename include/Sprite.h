@@ -11,12 +11,16 @@ using namespace std;
 class Sprite {
 	public:
 		Sprite();
-		Sprite(string file);
+		Sprite(string file, int frameCount = 1, double frameTime = 1);
 		~Sprite();
 
 		void Open(string file);
+		void Update(double dt);
 		void SetClip(int x, int y, int w, int h);
 		void Render(int x, int y, double angle = 0);
+		void SetFrame(int frame);
+		void SetFrameCount(int frameCount);
+		void SetFrameTime(double frameTime);
 		void SetScaleX(double scale);
 		void SetScaleY(double scale);
 		int GetWidth();
@@ -28,6 +32,10 @@ class Sprite {
 		int width;
 		int height;
 		SDL_Rect * clipRect;
+		int frameCount;
+		int currentFrame;
+		double timeElapsed;
+		double frameTime;
 		double scaleX;
 		double scaleY;
 };

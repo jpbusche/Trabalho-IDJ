@@ -52,7 +52,7 @@ void Minion::Shoot(Vec2 pos) {
 	double speed = 200;
 	double maxDistance = 16000;
 
-	Bullet * minionBullet = new Bullet(box->x, box->y, angle, speed, maxDistance, "img/minionbullet1.png");
+	Bullet * minionBullet = new Bullet(box->x, box->y, angle, speed, maxDistance, "img/minionbullet2.png", 3, 1.0/15.0);
 
 	State * state = Game::GetInstance().GetState();
 	state->AddObject(minionBullet);

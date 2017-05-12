@@ -2,7 +2,6 @@
 #include "Alien.h"
 #include "Camera.h"
 #include "InputManager.h"
-#include "Rect.h"
 
 using namespace std;
 
