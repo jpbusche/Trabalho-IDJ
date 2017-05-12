@@ -37,10 +37,10 @@ void Alien::Update(double dt) {
 	double mouseX = (double)input.GetMouseX();
 	double mouseY = (double)input.GetMouseY();
 
-	if(input.MousePress(SDL_BUTTON_LEFT)) {
+	if(input.MousePress(LEFT_MOUSE_BUTTON)) {
 		Action action = Action(mouseX, mouseY, Action::ActionType::SHOOT);
 		taskQueue.emplace(action);
-	} else if(input.MousePress(SDL_BUTTON_RIGHT)) {
+	} else if(input.MousePress(LEFT_MOUSE_BUTTON)) {
 		move.x = mouseX;
 		move.y = mouseY;
 		Action action = Action(box->x, box->y, Action::ActionType::MOVE);

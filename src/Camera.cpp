@@ -20,13 +20,13 @@ void Camera::Update(double dt) {
 	speed = Vec2(0, 0);
 	if(focus) {
 	} else {
-		if(input.IsKeyDown(SDLK_LEFT)) {
+		if(input.IsKeyDown(LEFT_ARROW_KEY)) {
 			speed.x = 1.0 / dt;
-		} else if(input.IsKeyDown(SDLK_RIGHT)) {
+		} else if(input.IsKeyDown(RIGHT_ARROW_KEY)) {
 			speed.x = - 1.0 / dt;
-		} else if(input.IsKeyDown(SDLK_DOWN)) {
+		} else if(input.IsKeyDown(DOWN_ARROW_KEY)) {
 			speed.y = - 1.0 / dt;
-		} else if(input.IsKeyDown(SDLK_UP)) {
+		} else if(input.IsKeyDown(UP_ARROW_KEY)) {
 			speed.y = 1.0 / dt;
 		}
 	}
