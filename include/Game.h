@@ -6,6 +6,9 @@
 #include "SDL2/SDL_image.h"
 #include "State.h"
 
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 600
+
 using namespace std;
 
 class Game {
