@@ -2,6 +2,9 @@
 #include "Penguins.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "State.h"
+#include "Game.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -47,15 +50,38 @@ void Penguins::Update(double dt) {
 	int mouseX = input.GetMouseX();
 	int mouseY = input.GetMouseY();
 	cannonAngle = atan2(mouseY - box->y, mouseX - box->x);
-	cannonAngle = cannonAngle * 180 / acos(-1);
+
+	if(input.MousePress(LEFT_MOUSE_BUTTON)) {
+		Shoot();
+	}
 
 }
 
 void Penguins::Render() {
+	cannonAngle = cannonAngle * 180 / acos(-1);
 	bodySprite.Render(box->x + Camera::pos.x, box->y + Camera::pos.y, rotation);
-	double cannonX = box->x + abs(cannonSprite.GetWidth() - bodySprite.GetWidth()) / 2;
-	double cannonY = box->y + abs(bodySprite.GetHeight() - cannonSprite.GetHeight()) / 2;
+	double cannonX = box->x + abs(cannonSprite.GetWidth() - bodySprite.GetWidth()) / 2.0;
+	double cannonY = box->y + abs(bodySprite.GetHeight() - cannonSprite.GetHeight()) / 2.0;
 	cannonSprite.Render(cannonX + Camera::pos.x, cannonY + Camera::pos.y, cannonAngle);
+}
+
+void Penguins::Shoot() {
+	cannonAngle += acos(-1);
+	double speed = 100;
+	double maxDistance = 16000;
+
+	double diffWidth = fabs(bodySprite.GetWidth() - cannonSprite.GetWidth()) / 2.0;
+	double diffHeight = fabs(bodySprite.GetHeight() - cannonSprite.GetHeight()) / 2.0;
+	double cannonX = box->x + diffWidth + cannonSprite.GetWidth() / 2.0;
+	double cannonY = box->y + diffHeight + cannonSprite.GetHeight() / 2.0;
+
+	Vec2 cannon(cannonX + cannonSprite.GetWidth() * 0.8, cannonY);
+	cannon.Rotate(cannon, cannonAngle, cannonX, cannonY);
+
+	Bullet * penguinBullet = new Bullet(cannon.GetX(), cannon.GetY(), cannonAngle, speed, maxDistance, "img/penguinbullet.png", 4, 1.0/10.0);
+
+	State * state = Game::GetInstance().GetState();
+	state->AddObject(penguinBullet);
 }
 
 bool Penguins::IsDead() {
