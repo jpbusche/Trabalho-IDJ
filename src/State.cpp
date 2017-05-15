@@ -1,5 +1,6 @@
 #include "State.h"
 #include "Alien.h"
+#include "Penguins.h"
 #include "Vec2.h"
 #include "InputManager.h"
 #include "Camera.h"
@@ -13,6 +14,9 @@ State::State() {
     tileMap = new TileMap("map/tileMap.txt", tileSet);
 
     Alien * alien = new Alien(512, 300, 6);
+    Penguins * penguings = new Penguins(704, 640);
+    Camera::Follow(penguings);
+    AddObject(penguings);
     AddObject(alien);
 }
 
