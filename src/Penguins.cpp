@@ -66,19 +66,16 @@ void Penguins::Render() {
 }
 
 void Penguins::Shoot() {
-	cannonAngle += acos(-1);
 	double speed = 100;
 	double maxDistance = 16000;
 
-	double diffWidth = fabs(bodySprite.GetWidth() - cannonSprite.GetWidth()) / 2.0;
-	double diffHeight = fabs(bodySprite.GetHeight() - cannonSprite.GetHeight()) / 2.0;
-	double cannonX = box->x + diffWidth + cannonSprite.GetWidth() / 2.0;
-	double cannonY = box->y + diffHeight + cannonSprite.GetHeight() / 2.0;
+	double middleX = box->x + box->w / 2;
+	double middleY = box->y + box->h / 2;
 
-	Vec2 cannon(cannonX + cannonSprite.GetWidth() * 0.8, cannonY);
-	cannon.Rotate(cannon, cannonAngle, cannonX, cannonY);
+	Vec2 bullet;
+	bullet.Transform(cannonSprite.GetWidth() / 2.0, cannonAngle);
 
-	Bullet * penguinBullet = new Bullet(cannon.GetX(), cannon.GetY(), cannonAngle, speed, maxDistance, "img/penguinbullet.png", 4, 1.0/10.0);
+	Bullet * penguinBullet = new Bullet(middleX + bullet.GetX(), middleY + bullet.GetY(), cannonAngle + acos(-1), speed, maxDistance, "img/penguinbullet.png", 4, 1.0/10.0);
 
 	State * state = Game::GetInstance().GetState();
 	state->AddObject(penguinBullet);

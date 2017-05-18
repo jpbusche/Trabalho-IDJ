@@ -19,6 +19,11 @@ double Vec2::GetY() {
 	return y;
 }
 
+void Vec2::Transform(double module, double angle) {
+	x = module * cos(angle);
+	y = module * sin(angle);
+}
+
 Vec2 Vec2::Rotate(Vec2 vector, double angle) {
 	double newX = vector.GetX() * cos(angle) - vector.GetY() * sin(angle);
 	double newY = vector.GetX() * sin(angle) + vector.GetY() * cos(angle);

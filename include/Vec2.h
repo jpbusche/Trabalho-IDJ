@@ -16,6 +16,7 @@ class Vec2 {
 		Vec2 Translate(Vec2 vector, double x, double y);
 		Vec2 Rotate(Vec2 vector, double angle);
 		Vec2 Rotate(Vec2 vector, double angle, double x, double y);
+		void Transform(double module, double angle);
 };
 
 #endif
